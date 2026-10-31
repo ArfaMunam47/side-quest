@@ -1,0 +1,214 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --sq-purple: #A98BEF;
+    --sq-pink: #F0449B;
+    --sq-yellow: #FFE17B;
+    --sq-mint: #A8E8C2;
+    --sq-sky: #83C9F5;
+    --sq-ink: #211D29;
+    --sq-cream: #FFF9EA;
+    --sq-white: #FFFFFF;
+    --sq-deep-purple: #39264F;
+    --sq-muted: #57525E; /* Darkened for strict WCAG AA contrast (5.7:1 against cream) */
+    
+    --font-display: 'Press Start 2P', monospace;
+    --font-interface: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--sq-ink);
+    background-color: var(--sq-deep-purple);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* Global Root Text-scaling modes */
+html.text-size-normal {
+  font-size: 16px;
+}
+html.text-size-large {
+  font-size: 18px;
+}
+html.text-size-xlarge {
+  font-size: 20px;
+}
+
+/* Global Reduced-Motion compliance */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html.reduced-motion *,
+html.reduced-motion ::before,
+html.reduced-motion ::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Custom retro typography */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.04em;
+}
+
+.font-interface {
+  font-family: var(--font-interface);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+/* Crisp hard pixel offset shadows */
+.shadow-retro-sm {
+  box-shadow: 2px 2px 0px #211D29;
+}
+
+.shadow-retro {
+  box-shadow: 4px 4px 0px #211D29;
+}
+
+.shadow-retro-lg {
+  box-shadow: 6px 6px 0px #211D29;
+}
+
+.shadow-retro-xl {
+  box-shadow: 8px 8px 0px #211D29;
+}
+
+.shadow-retro-pink {
+  box-shadow: 4px 4px 0px #F0449B;
+}
+
+.shadow-retro-yellow {
+  box-shadow: 4px 4px 0px #FFE17B;
+}
+
+.shadow-retro-purple {
+  box-shadow: 4px 4px 0px #A98BEF;
+}
+
+/* Tactile retro button click behavior */
+.btn-retro {
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+.btn-retro:hover:not(:disabled) {
+  transform: translate(-1px, -1px);
+}
+
+.btn-retro:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #211D29 !important;
+}
+
+/* Classic retro window titlebar stripes (System 7 / OS 9 horizontal ridges) */
+.titlebar-stripes {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(33, 29, 41, 0.25) 2px,
+    rgba(33, 29, 41, 0.25) 3px,
+    transparent 3px,
+    transparent 5px
+  );
+}
+
+/* Retro desktop background patterns */
+.bg-retro-desktop {
+  background-color: #2b1c3d;
+  background-image: 
+    radial-gradient(#452e60 1.5px, transparent 1.5px),
+    radial-gradient(#452e60 1.5px, #2b1c3d 1.5px);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+}
+
+.bg-retro-grid {
+  background-size: 16px 16px;
+  background-image: 
+    linear-gradient(to right, rgba(33, 29, 41, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(33, 29, 41, 0.06) 1px, transparent 1px);
+}
+
+.bg-retro-stripes {
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(33, 29, 41, 0.05),
+    rgba(33, 29, 41, 0.05) 3px,
+    transparent 3px,
+    transparent 6px
+  );
+}
+
+/* Retro diagonal corner resize grip */
+.resize-grip {
+  background: repeating-linear-gradient(
+    -45deg,
+    #211D29,
+    #211D29 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* Frosted sticky-note tape */
+.tape-accent {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(1px);
+  border: 1px solid rgba(33, 29, 41, 0.2);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Subtle CRT scanline for retro monitor frames */
+.scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.15) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.02),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.02)
+  );
+  background-size: 100% 3px, 6px 100%;
+}
+
+/* Retro scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FFF9EA;
+  border-left: 2px solid #211D29;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #A98BEF;
+  border: 2px solid #211D29;
+  box-shadow: inset 1px 1px 0px rgba(255, 255, 255, 0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #F0449B;
+}
+
+/* Focus indicators for accessibility */
+*:focus-visible {
+  outline: 3px solid #F0449B !important;
+  outline-offset: 2px !important;
+}

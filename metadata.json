@@ -1,0 +1,6 @@
+{
+  "name": "SIDE QUEST",
+  "description": "Less scrolling. More discovering. A desktop-first digital playground for curious minds with mini-games, creative activities, relaxing experiences, and real-world quests.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
