@@ -1,193 +1,122 @@
-import React, { useState, useMemo } from 'react';
+import React from 'react';
 import { RetroWindow } from '../../components/windows/RetroWindow';
-import { QuestCard } from '../../components/cards/QuestCard';
-import { Quest, QuestCategory } from '../../types/quest';
-import { QUESTS_REGISTRY } from '../../data/quests';
-import { filterQuests } from '../discovery/engine';
-import { Sparkles, Search, ArrowUpDown, Filter, RotateCcw } from 'lucide-react';
+import {
+  Sparkles,
+  Gamepad2,
+  Hammer,
+  ShieldCheck,
+  CheckCircle,
+  Clock,
+  Layers,
+  ArrowRight,
+} from 'lucide-react';
 
 interface LibraryScreenProps {
-  onSelectQuest: (quest: Quest) => void;
-  favorites: string[];
-  onToggleFavorite: (questId: string) => void;
-  onSoundTrigger?: (type?: 'click' | 'boop' | 'chime') => void;
+  onNavigateToQuests: () => void;
+  onSoundTrigger?: (type?: 'click' | 'boop' | 'chime' | 'fanfare' | 'pop') => void;
 }
 
 export const LibraryScreen: React.FC<LibraryScreenProps> = ({
-  onSelectQuest,
-  favorites,
-  onToggleFavorite,
+  onNavigateToQuests,
   onSoundTrigger,
 }) => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [activeCategory, setActiveCategory] = useState<QuestCategory | 'all'>('all');
-  const [sortBy, setSortBy] = useState<'title' | 'duration' | 'difficulty'>('title');
-
-  const categories: { id: QuestCategory | 'all'; label: string; count: number }[] = [
-    { id: 'all', label: 'All Files', count: QUESTS_REGISTRY.length },
-    {
-      id: 'brain',
-      label: 'Brain Quests',
-      count: QUESTS_REGISTRY.filter((q) => q.category === 'brain').length,
-    },
-    {
-      id: 'creative',
-      label: 'Creative Quests',
-      count: QUESTS_REGISTRY.filter((q) => q.category === 'creative').length,
-    },
-    {
-      id: 'cozy',
-      label: 'Cozy Quests',
-      count: QUESTS_REGISTRY.filter((q) => q.category === 'cozy').length,
-    },
-    {
-      id: 'curiosity',
-      label: 'Curiosity Quests',
-      count: QUESTS_REGISTRY.filter((q) => q.category === 'curiosity').length,
-    },
-    {
-      id: 'real-life',
-      label: 'Real-Life Quests',
-      count: QUESTS_REGISTRY.filter((q) => q.category === 'real-life').length,
-    },
-  ];
-
-  // Use the engine filterQuests
-  const filteredQuests = useMemo(() => {
-    const list = filterQuests(QUESTS_REGISTRY, {
-      category: activeCategory === 'all' ? null : activeCategory,
-      searchQuery: searchQuery.trim() || null,
-      includeComingSoon: true, // In full archive, show all registered files
-    });
-
-    return [...list].sort((a, b) => {
-      if (sortBy === 'title') return a.title.localeCompare(b.title);
-      if (sortBy === 'duration') return a.duration.localeCompare(b.duration);
-      if (sortBy === 'difficulty') return a.difficulty.localeCompare(b.difficulty);
-      return 0;
-    });
-  }, [activeCategory, searchQuery, sortBy]);
-
   return (
-    <div className="space-y-8 pb-12">
+    <div className="space-y-8 pb-12 max-w-5xl mx-auto">
+      {/* 1. Header Overview Window */}
       <RetroWindow
-        title="QUEST_ARCHIVE_EXPLORER.EXE"
-        headerColor="yellow"
-        shadowSize="lg"
-        statusBadge={`${filteredQuests.length} OF ${QUESTS_REGISTRY.length} ITEMS`}
+        title="GAME_VAULT_DIRECTORY.EXE"
+        headerColor="purple"
+        shadowSize="xl"
       >
-        <div className="p-6 bg-retro-grid space-y-5">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-              <div className="flex items-center gap-2 text-xs font-interface font-semibold text-[#77717D] mb-1">
-                <Sparkles className="w-4 h-4 text-[#F0449B]" />
-                <span>SCREEN 05 · COMPLETE CATALOG</span>
-              </div>
-              <h1 className="font-display text-xl sm:text-2xl text-[#211D29]">
-                QUEST ARCHIVE DIRECTORY
-              </h1>
-              <p className="text-xs text-[#77717D] mt-1 font-body">
-                Explore our full library of interactive digital toys and mindful offline prompts.
-              </p>
+        <div className="p-6 md:p-8 bg-retro-grid space-y-6">
+          <div className="max-w-2xl space-y-3">
+            <div className="flex items-center gap-2 font-mono text-xs font-bold text-[#F0449B]">
+              <Gamepad2 className="w-4 h-4" />
+              <span>LONG-TERM VISION · 100+ GAMES</span>
             </div>
 
-            {/* Search Input */}
-            <div className="relative w-full md:w-72">
-              <Search className="w-4 h-4 text-[#77717D] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search by name, tag, or topic..."
-                className="w-full pl-9 pr-3 py-2 border-2 border-[#211D29] bg-white text-xs font-interface text-[#211D29] placeholder:text-[#77717D] focus:outline-none shadow-retro-sm"
-              />
-            </div>
-          </div>
+            <h1 className="font-interface font-bold text-3xl sm:text-4xl text-[#211D29] leading-tight">
+              THE SIDE QUEST GAME VAULT
+            </h1>
 
-          {/* Category Tabs */}
-          <div className="flex flex-wrap gap-2">
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                type="button"
-                onClick={() => {
-                  onSoundTrigger?.('click');
-                  setActiveCategory(cat.id);
-                }}
-                className={`px-3 py-1.5 border-2 border-[#211D29] font-interface text-xs font-bold transition-all ${
-                  activeCategory === cat.id
-                    ? 'bg-[#F0449B] text-white shadow-retro'
-                    : 'bg-[#FFF9EA] text-[#211D29] hover:bg-[#FFE17B]'
-                }`}
-              >
-                <span>{cat.label}</span>
-                <span className="ml-1.5 text-[10px] opacity-80">({cat.count})</span>
-              </button>
-            ))}
-          </div>
-
-          {/* Sort Controls */}
-          <div className="pt-2 border-t border-[#211D29]/15 flex items-center justify-between text-xs text-[#77717D]">
-            <span>
-              Showing <strong className="text-[#211D29]">{filteredQuests.length}</strong> of {QUESTS_REGISTRY.length} registered activities
-            </span>
-
-            <div className="flex items-center gap-2">
-              <ArrowUpDown className="w-3.5 h-3.5 text-[#211D29]" />
-              <span className="font-semibold text-[#211D29]">Sort by:</span>
-              {(['title', 'duration', 'difficulty'] as const).map((s) => (
-                <button
-                  key={s}
-                  type="button"
-                  onClick={() => {
-                    onSoundTrigger?.('click');
-                    setSortBy(s);
-                  }}
-                  className={`capitalize px-2 py-0.5 border border-[#211D29] ${
-                    sortBy === s
-                      ? 'bg-[#211D29] text-white font-bold'
-                      : 'bg-white hover:bg-[#FFE17B]'
-                  }`}
-                >
-                  {s}
-                </button>
-              ))}
-            </div>
+            <p className="font-body text-sm text-[#39264F] leading-relaxed">
+              We are developing an expansive library of more than 100 original, independently playable games.
+              Rather than filling this catalog with fake previews or empty cards, we build, test, and release each game
+              one by one.
+            </p>
           </div>
         </div>
       </RetroWindow>
 
-      {/* Grid */}
-      {filteredQuests.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {filteredQuests.map((quest) => (
-            <QuestCard
-              key={quest.id}
-              quest={quest}
-              isFavorite={favorites.includes(quest.id)}
-              onSelect={onSelectQuest}
-              onToggleFavorite={onToggleFavorite}
-              onSoundTrigger={() => onSoundTrigger?.('click')}
-            />
-          ))}
-        </div>
-      ) : (
-        <div className="p-8 border-2 border-[#211D29] bg-[#FFF9EA] text-center shadow-retro">
-          <p className="font-interface font-bold text-base text-[#211D29]">
-            No quests matched your search query "{searchQuery}"
+      {/* 2. Core Pillars of our Game Studio */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="p-5 border-2 border-[#211D29] bg-[#FFF9EA] shadow-retro space-y-2">
+          <div className="w-8 h-8 border border-[#211D29] bg-[#FFE17B] flex items-center justify-center font-bold text-xs shadow-retro-sm">
+            01
+          </div>
+          <h2 className="font-interface font-bold text-base text-[#211D29]">
+            Built One by One
+          </h2>
+          <p className="font-body text-xs text-[#57525E] leading-relaxed">
+            Every game will be crafted as a complete, genuine experience with its own mechanics, instructions, and replayability.
           </p>
+        </div>
+
+        <div className="p-5 border-2 border-[#211D29] bg-[#FFF9EA] shadow-retro space-y-2">
+          <div className="w-8 h-8 border border-[#211D29] bg-[#A8E8C2] flex items-center justify-center font-bold text-xs shadow-retro-sm">
+            02
+          </div>
+          <h2 className="font-interface font-bold text-base text-[#211D29]">
+            Zero Fake Placeholders
+          </h2>
+          <p className="font-body text-xs text-[#57525E] leading-relaxed">
+            We will never display a game as playable until it has been genuinely engineered, tested, and verified on desktop and mobile.
+          </p>
+        </div>
+
+        <div className="p-5 border-2 border-[#211D29] bg-[#FFF9EA] shadow-retro space-y-2">
+          <div className="w-8 h-8 border border-[#211D29] bg-[#83C9F5] flex items-center justify-center font-bold text-xs shadow-retro-sm">
+            03
+          </div>
+          <h2 className="font-interface font-bold text-base text-[#211D29]">
+            Guest-First & Free
+          </h2>
+          <p className="font-body text-xs text-[#57525E] leading-relaxed">
+            No microtransactions, no pay-to-win, and no accounts required. Free, open-source casual fun for everyone.
+          </p>
+        </div>
+      </div>
+
+      {/* 3. Honest Vault Status Box */}
+      <div className="border-2 border-[#211D29] bg-[#FFF9EA] p-6 md:p-8 shadow-retro-lg text-center space-y-4">
+        <div className="w-14 h-14 mx-auto border-2 border-[#211D29] bg-[#FFE17B] flex items-center justify-center shadow-retro-sm">
+          <Hammer className="w-7 h-7 text-[#211D29]" />
+        </div>
+
+        <div className="space-y-1.5 max-w-lg mx-auto">
+          <h3 className="font-interface font-bold text-xl text-[#211D29]">
+            Game Releases in Active Development
+          </h3>
+          <p className="font-body text-xs text-[#57525E] leading-relaxed">
+            Our engineering team is actively building and refining the first batch of games.
+            In the meantime, you can explore our collection of relaxing interactive puzzles and mindful offline quests!
+          </p>
+        </div>
+
+        <div className="pt-2">
           <button
             type="button"
             onClick={() => {
-              setSearchQuery('');
-              setActiveCategory('all');
+              onSoundTrigger?.('click');
+              onNavigateToQuests();
             }}
-            className="mt-3 px-4 py-2 border-2 border-[#211D29] bg-[#FFE17B] text-xs font-interface font-bold btn-retro shadow-retro-sm"
+            className="px-6 py-3 border-2 border-[#211D29] bg-[#F0449B] text-white font-interface font-bold text-xs btn-retro shadow-retro hover:brightness-105 inline-flex items-center gap-2"
           >
-            Clear Search
+            <span>Explore Current Quests</span>
+            <ArrowRight className="w-4 h-4" />
           </button>
         </div>
-      )}
+      </div>
     </div>
   );
 };

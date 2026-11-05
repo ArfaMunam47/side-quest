@@ -50,4 +50,4 @@ export interface UserPreferences {
   accessibility: AccessibilitySettings;
 }
 
-export type ScreenId = 'home' | 'moods' | 'discovery' | 'arcade' | 'library' | 'real-life' | 'my-space';
+export type ScreenId = 'home' | 'moods' | 'discovery' | 'library' | 'real-life' | 'my-space';

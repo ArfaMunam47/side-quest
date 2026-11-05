@@ -10,7 +10,6 @@ import { QuestDetailModal } from './components/windows/QuestDetailModal';
 import { HomeScreen } from './features/home/HomeScreen';
 import { MoodsScreen } from './features/moods/MoodsScreen';
 import { DiscoveryScreen } from './features/discovery/DiscoveryScreen';
-import { ArcadeScreen } from './features/arcade/ArcadeScreen';
 import { LibraryScreen } from './features/library/LibraryScreen';
 import { RealLifeScreen } from './features/reallife/RealLifeScreen';
 import { MySpaceScreen } from './features/myspace/MySpaceScreen';
@@ -87,7 +86,7 @@ export default function App() {
           className="flex-1 overflow-y-auto bg-retro-desktop px-4 sm:px-6 md:px-8 py-6 md:py-8 pb-24 lg:pb-8"
         >
           <div className="max-w-7xl mx-auto">
-            {/* Active Playable Game Environment */}
+            {/* Playable Mini-Game Environment */}
             {activeGameQuest ? (
               <GameEnvironment
                 quest={activeGameQuest}
@@ -129,21 +128,9 @@ export default function App() {
                   />
                 )}
 
-                {currentScreen === 'arcade' && (
-                  <ArcadeScreen
-                    onSelectQuest={handleSelectQuest}
-                    favorites={preferences.favorites}
-                    onToggleFavorite={toggleFavorite}
-                    reducedMotion={preferences.accessibility.reducedMotion}
-                    onSoundTrigger={handleSound}
-                  />
-                )}
-
                 {currentScreen === 'library' && (
                   <LibraryScreen
-                    onSelectQuest={handleSelectQuest}
-                    favorites={preferences.favorites}
-                    onToggleFavorite={toggleFavorite}
+                    onNavigateToQuests={() => handleNavigate('discovery')}
                     onSoundTrigger={handleSound}
                   />
                 )}

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { RetroWindow } from '../../components/windows/RetroWindow';
 import { QuestCard } from '../../components/cards/QuestCard';
 import { Quest } from '../../types/quest';
 import { QUESTS_REGISTRY } from '../../data/quests';
-import { TreePine, CheckCircle2, Heart, Sparkles, Smile, ShieldCheck } from 'lucide-react';
+import { TreePine, CheckCircle2, ShieldCheck } from 'lucide-react';
 
 interface RealLifeScreenProps {
   onSelectQuest: (quest: Quest) => void;
@@ -19,39 +19,40 @@ export const RealLifeScreen: React.FC<RealLifeScreenProps> = ({
   favorites,
   onToggleFavorite,
   completedQuests,
-  onMarkCompleted,
   onSoundTrigger,
 }) => {
   const offlineQuests = QUESTS_REGISTRY.filter((q) => q.type === 'offline');
+  const completedCount = completedQuests.filter((id) => offlineQuests.some((q) => q.id === id)).length;
 
   return (
     <div className="space-y-8 pb-12">
       <RetroWindow
-        title="offline_sanctuary.exe"
+        title="OFFLINE_SANCTUARY.TXT"
         headerColor="yellow"
         shadowSize="lg"
       >
-        <div className="p-6 md:p-8 bg-retro-grid space-y-4">
-          <div className="max-w-2xl">
-            <div className="flex items-center gap-2 text-xs font-interface font-semibold text-[#77717D] mb-1">
+        <div className="p-6 md:p-8 bg-retro-grid space-y-5">
+          <div className="max-w-2xl space-y-2">
+            <div className="flex items-center gap-2 text-xs font-interface font-bold text-[#211D29]">
               <TreePine className="w-4 h-4 text-[#211D29]" />
-              <span>SCREEN 09 · OFFLINE SANCTUARY</span>
+              <span>MINDFUL REAL-WORLD BREAKS</span>
             </div>
-            <h1 className="font-display text-xl sm:text-2xl text-[#211D29]">
+            <h1 className="font-interface font-bold text-2xl sm:text-3xl text-[#211D29] leading-tight">
               REAL-WORLD SIDE QUESTS
             </h1>
-            <p className="font-body text-sm text-[#39264F] mt-2 leading-relaxed">
-              The ultimate anti-scroll mechanic is stepping away from the glass. These are zero-friction offline activities you can complete right where you are sitting.
+            <p className="font-body text-xs sm:text-sm text-[#39264F] leading-relaxed">
+              The ultimate anti-scroll alternative is stepping away from the glass.
+              These are peaceful, zero-pressure offline prompts you can finish right where you are sitting in 2 to 10 minutes.
             </p>
           </div>
 
-          {/* Honor System Privacy Banner */}
+          {/* 100% Honor System Banner */}
           <div className="p-4 border-2 border-[#211D29] bg-[#A8E8C2] text-[#211D29] shadow-retro-sm flex items-start gap-3">
-            <ShieldCheck className="w-5 h-5 shrink-0 mt-0.5" />
-            <div className="text-xs">
-              <span className="font-bold font-interface">The 100% Honor System: </span>
-              <span>
-                No camera uploads, no GPS tracking, and no social clout checks. When you finish an activity, click "I Did This" on your own word.
+            <ShieldCheck className="w-5 h-5 shrink-0 mt-0.5 text-[#211D29]" />
+            <div className="text-xs space-y-0.5">
+              <span className="font-bold font-interface block">The 100% Honor System:</span>
+              <span className="font-body text-[#211D29]/90">
+                No camera uploads, no location tracking, and no social check-ins. When you finish an activity, click "Mark Completed" on your own word.
               </span>
             </div>
           </div>
@@ -59,13 +60,13 @@ export const RealLifeScreen: React.FC<RealLifeScreenProps> = ({
       </RetroWindow>
 
       {/* Grid of offline quests */}
-      <div>
-        <div className="flex items-center justify-between mb-4">
+      <div className="space-y-4">
+        <div className="flex items-center justify-between border-b-2 border-[#211D29]/20 pb-2">
           <h2 className="font-interface font-bold text-base text-[#FFF9EA]">
             AVAILABLE REAL-WORLD PROMPTS
           </h2>
-          <span className="text-xs text-[#FFF9EA]/60">
-            {completedQuests.filter((id) => offlineQuests.some((q) => q.id === id)).length} of {offlineQuests.length} completed
+          <span className="text-xs text-[#FFF9EA]/70 font-mono">
+            {completedCount} of {offlineQuests.length} completed
           </span>
         </div>
 

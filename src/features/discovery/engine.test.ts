@@ -12,14 +12,33 @@ console.log('--- RUNNING SIDE QUEST DISCOVERY ENGINE TESTS ---');
 
 // Test 1: Availability filtering (Excludes 'coming-soon' by default)
 {
-  const playableOnly = filterQuests(QUESTS_REGISTRY);
+  const testList: typeof QUESTS_REGISTRY = [
+    ...QUESTS_REGISTRY,
+    {
+      id: 'test-upcoming-quest',
+      title: 'Upcoming Quest Test',
+      tagline: 'Test item for availability filter',
+      description: 'Test description',
+      category: 'brain',
+      type: 'digital',
+      duration: '2-5 min',
+      difficulty: 'easy',
+      moods: ['think'],
+      thumbnail: '',
+      instructions: [],
+      availability: 'coming-soon',
+      tags: ['test'],
+    },
+  ];
+
+  const playableOnly = filterQuests(testList);
   assert.ok(playableOnly.length > 0, 'Should return playable quests');
   assert.ok(
     playableOnly.every((q) => q.availability === 'playable'),
     'All returned quests must have availability === "playable"'
   );
 
-  const withComingSoon = filterQuests(QUESTS_REGISTRY, { includeComingSoon: true });
+  const withComingSoon = filterQuests(testList, { includeComingSoon: true });
   assert.ok(
     withComingSoon.length > playableOnly.length,
     'Should include coming-soon quests when includeComingSoon: true'

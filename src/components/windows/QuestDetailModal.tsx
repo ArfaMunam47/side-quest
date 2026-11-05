@@ -8,9 +8,9 @@ import {
   Heart,
   CheckCircle,
   Sparkles,
-  ExternalLink,
   TreePine,
   ShieldCheck,
+  Play,
 } from 'lucide-react';
 
 interface QuestDetailModalProps {
@@ -55,15 +55,15 @@ export const QuestDetailModal: React.FC<QuestDetailModalProps> = ({
     >
       <div className="w-full max-w-xl max-h-[90vh] flex flex-col">
         <RetroWindow
-          title={`quest_${quest.id}.exe`}
+          title={quest.title}
           headerColor={isOffline ? 'yellow' : 'purple'}
           shadowSize="xl"
           onClose={onClose}
           className="max-h-[90vh] flex flex-col"
           footerContent={
-            <div className="flex items-center justify-between w-full text-xs">
-              <span>{isOffline ? 'Self-Paced Real-World Activity' : 'Playable Digital Module'}</span>
-              <span className="font-mono">{quest.availability.toUpperCase()}</span>
+            <div className="flex items-center justify-between w-full text-xs text-[#57525E]">
+              <span>{isOffline ? 'Self-Paced Real-World Activity' : 'Playable Digital Activity'}</span>
+              <span className="font-mono text-[#211D29] font-bold">READY TO PLAY</span>
             </div>
           }
         >
@@ -71,12 +71,12 @@ export const QuestDetailModal: React.FC<QuestDetailModalProps> = ({
             {/* Header info */}
             <div className="flex items-start justify-between gap-4">
               <div>
-                <div className="flex items-center gap-2 text-xs font-interface text-[#77717D] mb-1">
-                  <span className="uppercase font-bold text-[#211D29]">
+                <div className="flex items-center gap-2 text-xs font-interface text-[#57525E] mb-1">
+                  <span className="uppercase font-bold text-[#F0449B]">
                     {quest.category}
                   </span>
                   <span aria-hidden="true">·</span>
-                  <span>{quest.type}</span>
+                  <span className="capitalize">{quest.type}</span>
                   <span aria-hidden="true">·</span>
                   <span>{quest.duration}</span>
                   <span aria-hidden="true">·</span>
@@ -100,6 +100,7 @@ export const QuestDetailModal: React.FC<QuestDetailModalProps> = ({
                   isFavorite ? 'bg-[#F0449B] text-white' : 'bg-[#FFF9EA] text-[#211D29] hover:bg-[#FFE17B]'
                 }`}
                 aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+                title={isFavorite ? 'Remove from favorites' : 'Save to favorites'}
               >
                 <Heart className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} />
               </button>
@@ -115,7 +116,7 @@ export const QuestDetailModal: React.FC<QuestDetailModalProps> = ({
             </div>
 
             {/* Description */}
-            <div className="p-3.5 border-2 border-[#211D29] bg-[#FFF9EA]">
+            <div className="p-4 border-2 border-[#211D29] bg-white">
               <p className="text-sm text-[#39264F] leading-relaxed font-body">
                 {quest.description}
               </p>
@@ -123,20 +124,20 @@ export const QuestDetailModal: React.FC<QuestDetailModalProps> = ({
 
             {/* Instructions list */}
             <div>
-              <h4 className="font-interface font-bold text-xs uppercase tracking-wider text-[#211D29] mb-2 flex items-center gap-1.5">
+              <h3 className="font-interface font-bold text-xs uppercase tracking-wider text-[#211D29] mb-2.5 flex items-center gap-1.5">
                 <Compass className="w-4 h-4 text-[#F0449B]" />
-                <span>How to do this quest:</span>
-              </h4>
+                <span>How to do this activity:</span>
+              </h3>
               <ol className="space-y-2 text-xs text-[#211D29] font-body">
                 {quest.instructions.map((step, idx) => (
                   <li
                     key={idx}
-                    className="flex items-start gap-2.5 p-2 border border-[#211D29]/20 bg-white"
+                    className="flex items-start gap-2.5 p-2.5 border border-[#211D29]/20 bg-white"
                   >
                     <span className="w-5 h-5 shrink-0 rounded-none border border-[#211D29] bg-[#FFE17B] text-[#211D29] font-mono font-bold text-[11px] flex items-center justify-center">
                       {idx + 1}
                     </span>
-                    <span className="leading-snug">{step}</span>
+                    <span className="leading-relaxed">{step}</span>
                   </li>
                 ))}
               </ol>
@@ -144,18 +145,18 @@ export const QuestDetailModal: React.FC<QuestDetailModalProps> = ({
 
             {/* Offline Special Tip */}
             {quest.offlineTip && (
-              <div className="p-3 border-2 border-[#211D29] bg-[#FFE17B] text-xs font-interface text-[#211D29] shadow-retro-sm flex items-start gap-2">
+              <div className="p-3.5 border-2 border-[#211D29] bg-[#FFE17B] text-xs font-interface text-[#211D29] shadow-retro-sm flex items-start gap-2.5">
                 <TreePine className="w-4 h-4 text-[#211D29] shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-bold">Cozy Offline Tip: </span>
-                  <span>{quest.offlineTip}</span>
+                  <span className="font-bold">Mindful Tip: </span>
+                  <span className="font-body">{quest.offlineTip}</span>
                 </div>
               </div>
             )}
 
             {/* Accessibility Notes */}
             {quest.accessibilityNotes && quest.accessibilityNotes.length > 0 && (
-              <div className="text-[11px] text-[#77717D] flex items-center gap-2">
+              <div className="text-xs text-[#57525E] flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-[#A8E8C2] shrink-0" />
                 <span>{quest.accessibilityNotes.join(' · ')}</span>
               </div>
@@ -166,9 +167,9 @@ export const QuestDetailModal: React.FC<QuestDetailModalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 border-2 border-[#211D29] bg-[#FFF9EA] hover:bg-[#FFE17B] text-xs font-interface font-bold btn-retro shadow-retro-sm"
+                className="px-4 py-2 border-2 border-[#211D29] bg-white hover:bg-[#FFE17B] text-xs font-interface font-bold btn-retro shadow-retro-sm"
               >
-                Close Window
+                Close
               </button>
 
               {isOffline ? (
@@ -178,32 +179,27 @@ export const QuestDetailModal: React.FC<QuestDetailModalProps> = ({
                   className={`px-5 py-2.5 border-2 border-[#211D29] font-interface font-bold text-xs btn-retro shadow-retro flex items-center gap-2 ${
                     offlineCompleted
                       ? 'bg-[#A8E8C2] text-[#211D29]'
-                      : 'bg-[#F0449B] text-white'
+                      : 'bg-[#F0449B] text-white hover:brightness-105'
                   }`}
                 >
                   <CheckCircle className="w-4 h-4" />
-                  <span>{offlineCompleted ? 'Completed! ✦' : 'I Did This Quest!'}</span>
+                  <span>{offlineCompleted ? 'Completed! ✦' : 'Mark Completed'}</span>
                 </button>
               ) : (
-                <div className="flex items-center gap-2">
-                  <span className="text-[11px] font-mono text-[#77717D]">
-                    Phase 3 Game Engine
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      onSoundTrigger?.('fanfare');
-                      onClose();
-                      if (onLaunchGame && quest) {
-                        onLaunchGame(quest);
-                      }
-                    }}
-                    className="px-5 py-2.5 border-2 border-[#211D29] bg-[#F0449B] text-white font-interface font-bold text-xs btn-retro shadow-retro flex items-center gap-2 hover:brightness-105"
-                  >
-                    <Sparkles className="w-4 h-4" />
-                    <span>Launch Game Experience</span>
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onSoundTrigger?.('fanfare');
+                    onClose();
+                    if (onLaunchGame && quest) {
+                      onLaunchGame(quest);
+                    }
+                  }}
+                  className="px-6 py-2.5 border-2 border-[#211D29] bg-[#F0449B] text-white font-interface font-bold text-xs btn-retro shadow-retro flex items-center gap-2 hover:brightness-105"
+                >
+                  <Play className="w-4 h-4 fill-current" />
+                  <span>Start Activity</span>
+                </button>
               )}
             </div>
           </div>

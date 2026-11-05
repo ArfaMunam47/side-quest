@@ -75,7 +75,7 @@ export const GameEnvironment: React.FC<GameEnvironmentProps> = ({
             <h1 className="font-interface font-bold text-base text-[#211D29] leading-tight">
               {quest.title}
             </h1>
-            <div className="flex items-center gap-2 text-[11px] font-mono text-[#77717D]">
+            <div className="flex items-center gap-2 text-[11px] font-mono text-[#57525E]">
               <span className="uppercase font-bold text-[#F0449B]">{quest.category}</span>
               <span aria-hidden="true">·</span>
               <span>{quest.duration}</span>
@@ -140,7 +140,7 @@ export const GameEnvironment: React.FC<GameEnvironmentProps> = ({
               ))}
             </ol>
             {quest.accessibilityNotes && quest.accessibilityNotes.length > 0 && (
-              <p className="pt-2 border-t border-[#211D29]/15 text-[11px] font-mono text-[#77717D]">
+              <p className="pt-2 border-t border-[#211D29]/15 text-[11px] font-mono text-[#57525E]">
                 Accessibility: {quest.accessibilityNotes.join(' · ')}
               </p>
             )}
@@ -210,7 +210,7 @@ export const GameEnvironment: React.FC<GameEnvironmentProps> = ({
                   <h2 className="font-display text-xl sm:text-2xl text-[#211D29]">
                     QUEST COMPLETED!
                   </h2>
-                  <p className="font-body text-xs text-[#77717D] mt-1.5 leading-relaxed">
+                  <p className="font-body text-xs text-[#57525E] mt-1.5 leading-relaxed">
                     You stepped away from the algorithmic feed and took time for your curious mind.
                   </p>
                 </div>
@@ -233,7 +233,7 @@ export const GameEnvironment: React.FC<GameEnvironmentProps> = ({
                     onClick={() => {
                       onSoundTrigger?.('click');
                       setIsCompletedModalOpen(false);
-                      onNavigate('arcade');
+                      onNavigate('discovery');
                     }}
                     className="w-full py-2.5 border-2 border-[#211D29] bg-[#F0449B] text-white font-interface font-bold text-xs btn-retro shadow-retro hover:brightness-105"
                   >

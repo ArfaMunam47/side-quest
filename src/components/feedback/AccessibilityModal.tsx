@@ -67,7 +67,7 @@ export const AccessibilityModal: React.FC<AccessibilityModalProps> = ({
                 <Eye className="w-4 h-4 text-[#F0449B]" />
                 <h3 id="accessibility-title">Text Size</h3>
               </div>
-              <p className="text-xs text-[#77717D] mb-3">
+              <p className="text-xs text-[#57525E] mb-3">
                 Adjust interface legibility across all quests.
               </p>
               <div className="grid grid-cols-3 gap-2">
@@ -100,7 +100,7 @@ export const AccessibilityModal: React.FC<AccessibilityModalProps> = ({
                   <div className="font-interface font-bold text-sm">
                     Reduced Motion
                   </div>
-                  <p className="text-xs text-[#77717D]">
+                  <p className="text-xs text-[#57525E]">
                     Disable celebratory shakes and playful hover transforms.
                   </p>
                 </div>
@@ -113,7 +113,7 @@ export const AccessibilityModal: React.FC<AccessibilityModalProps> = ({
                   className={`px-3 py-1.5 border-2 border-[#211D29] font-interface font-bold text-xs btn-retro shadow-retro-sm ${
                     settings.reducedMotion
                       ? 'bg-[#A8E8C2] text-[#211D29]'
-                      : 'bg-[#FFF9EA] text-[#77717D]'
+                      : 'bg-[#FFF9EA] text-[#57525E]'
                   }`}
                 >
                   {settings.reducedMotion ? 'ON' : 'OFF'}
@@ -130,7 +130,7 @@ export const AccessibilityModal: React.FC<AccessibilityModalProps> = ({
                     <div className="font-interface font-bold text-sm">
                       Synthesized Audio Effects
                     </div>
-                    <p className="text-xs text-[#77717D]">
+                    <p className="text-xs text-[#57525E]">
                       Play subtle 8-bit chimes and clicks on interaction.
                     </p>
                   </div>
@@ -144,7 +144,7 @@ export const AccessibilityModal: React.FC<AccessibilityModalProps> = ({
                   className={`px-3 py-1.5 border-2 border-[#211D29] font-interface font-bold text-xs btn-retro shadow-retro-sm ${
                     settings.soundEnabled
                       ? 'bg-[#83C9F5] text-[#211D29]'
-                      : 'bg-[#FFF9EA] text-[#77717D]'
+                      : 'bg-[#FFF9EA] text-[#57525E]'
                   }`}
                 >
                   {settings.soundEnabled ? 'ON' : 'OFF'}
@@ -159,7 +159,7 @@ export const AccessibilityModal: React.FC<AccessibilityModalProps> = ({
                   <div className="font-interface font-bold text-sm text-[#211D29]">
                     Local Storage & Privacy
                   </div>
-                  <p className="text-xs text-[#77717D]">
+                  <p className="text-xs text-[#57525E]">
                     All favorites and history live solely inside your browser.
                   </p>
                 </div>

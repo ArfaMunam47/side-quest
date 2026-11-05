@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Quest } from '../../types/quest';
-import { Heart, Compass, Clock, Zap, ArrowRight, Sparkles, TreePine, Terminal } from 'lucide-react';
+import { Heart, Clock, Zap, ArrowRight, Sparkles, TreePine, Terminal } from 'lucide-react';
 
 interface QuestCardProps {
   quest: Quest;
@@ -39,9 +39,9 @@ export const QuestCard: React.FC<QuestCardProps> = ({
         onSoundTrigger?.();
         onSelect(quest);
       }}
-      className="group relative flex flex-col border-2 border-[#211D29] bg-[#FFF9EA] shadow-retro hover:shadow-retro-lg transition-all duration-150 cursor-pointer overflow-hidden"
+      className="group relative flex flex-col border-2 border-[#211D29] bg-[#FFF9EA] shadow-retro hover:shadow-retro-lg transition-all duration-150 cursor-pointer overflow-hidden rounded-sm"
     >
-      {/* Top Cartridge File Header */}
+      {/* Top File Category Header */}
       <div className="flex items-center justify-between px-3 py-1.5 border-b-2 border-[#211D29] bg-[#FFF9EA] text-xs font-interface select-none">
         <div className="flex items-center gap-1.5 uppercase tracking-wider text-[11px] font-bold text-[#211D29] truncate pr-2">
           {isOffline ? (
@@ -51,7 +51,7 @@ export const QuestCard: React.FC<QuestCardProps> = ({
           )}
           <span className="truncate">{quest.category}</span>
           <span aria-hidden="true" className="text-[#211D29]/40">·</span>
-          <span className="text-[#77717D] font-normal">{quest.type}</span>
+          <span className="text-[#57525E] font-medium capitalize">{quest.type}</span>
         </div>
 
         {/* Favorite Heart Toggle */}
@@ -62,7 +62,7 @@ export const QuestCard: React.FC<QuestCardProps> = ({
           className={`w-6 h-6 flex items-center justify-center border border-[#211D29] shrink-0 transition-colors btn-retro shadow-[1px_1px_0px_#211D29] ${
             isFavorite
               ? 'bg-[#F0449B] text-white'
-              : 'bg-[#FFF9EA] text-[#211D29] hover:bg-[#FFE17B]'
+              : 'bg-white text-[#211D29] hover:bg-[#FFE17B]'
           }`}
           title={isFavorite ? 'Saved to Favorites' : 'Save to Favorites'}
         >
@@ -89,14 +89,14 @@ export const QuestCard: React.FC<QuestCardProps> = ({
           </div>
         )}
 
-        {/* Real-World Stamp Banner */}
+        {/* Offline Stamp Badge */}
         {isOffline && (
-          <div className="absolute top-2 left-2 border-2 border-[#211D29] bg-[#FFE17B] text-[#211D29] px-2 py-0.5 text-[9px] font-mono font-bold tracking-wider uppercase shadow-[2px_2px_0px_#211D29]">
-            OFFLINE QUEST
+          <div className="absolute top-2 left-2 border border-[#211D29] bg-[#FFE17B] text-[#211D29] px-1.5 py-0.5 text-[9px] font-mono font-bold tracking-wider uppercase shadow-[1px_1px_0px_#211D29]">
+            OFFLINE
           </div>
         )}
 
-        {/* Game Badge */}
+        {/* Digital Playable Badge */}
         {!isOffline && quest.gameKey && (
           <div className="absolute bottom-2 right-2 border border-[#211D29] bg-[#A8E8C2] text-[#211D29] px-1.5 py-0.5 text-[9px] font-mono font-bold shadow-[1px_1px_0px_#211D29]">
             PLAYABLE
@@ -110,13 +110,13 @@ export const QuestCard: React.FC<QuestCardProps> = ({
           <h3 className="font-interface font-bold text-sm text-[#211D29] group-hover:text-[#F0449B] transition-colors leading-snug">
             {quest.title}
           </h3>
-          <p className="mt-1 text-xs text-[#77717D] line-clamp-2 leading-relaxed font-body">
+          <p className="mt-1 text-xs text-[#57525E] line-clamp-2 leading-relaxed font-body">
             {quest.description}
           </p>
         </div>
 
-        {/* Unboxed Metadata Line (Anti-Slop Standard) */}
-        <div className="pt-2.5 border-t border-[#211D29]/15 flex items-center justify-between text-xs text-[#77717D]">
+        {/* Unboxed Metadata Line */}
+        <div className="pt-2.5 border-t border-[#211D29]/15 flex items-center justify-between text-xs text-[#57525E]">
           <div className="flex items-center gap-1.5 text-[11px] font-interface">
             <span className="flex items-center gap-1 font-semibold text-[#211D29]">
               <Clock className="w-3 h-3 text-[#211D29]" />
@@ -135,7 +135,7 @@ export const QuestCard: React.FC<QuestCardProps> = ({
             onClick={handleStartClick}
             className="inline-flex items-center gap-1 px-2.5 py-1 border border-[#211D29] bg-[#F0449B] text-white font-interface font-bold text-xs btn-retro shadow-[2px_2px_0px_#211D29] hover:brightness-105"
           >
-            <span>Launch</span>
+            <span>{isOffline ? 'View' : 'Play'}</span>
             <ArrowRight className="w-3 h-3" />
           </button>
         </div>
